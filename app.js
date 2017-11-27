@@ -25,8 +25,9 @@ mongoose.Promise = global.Promise; // for an error message in the terminal.
 
 // mongoose.connect("mongodb://localhost/yelp_camp_v12", {useMongoClient: true}); 
 // export DATABASEURL=mongodb://localhost/yelp_camp_v12  - in the terminal.
+//we need to set up the enviorment variable on heroku.
 mongoose.connect(process.env.DATABASEURL, {useMongoClient: true});
-mongoose.connect("mongodb://mor:3122pass@ds123146.mlab.com:23146/yelp_camp_mor", {useMongoClient: true}); 
+// mongoose.connect("mongodb://mor:3122pass@ds123146.mlab.com:23146/yelp_camp_mor", {useMongoClient: true}); 
 
 
 // here we create a DB called yelp_camp.
