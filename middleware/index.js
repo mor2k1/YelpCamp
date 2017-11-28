@@ -16,7 +16,7 @@ middlewareObj.checkCampgroundOwenership = function checkCampgroundOwenership(req
                 // console.log(req.user._id); - String
                 // if(foundCamp.author.id === req.user._id)
                 // so we need to use a method that mongoose give us - .equals()
-                if(foundCamp.author.id.equals(req.user._id)){
+                if(foundCamp.author.id.equals(req.user._id) || req.user.isAdmin){
                     next();
                 }else{
                     res.redirect("back");
@@ -25,7 +25,7 @@ middlewareObj.checkCampgroundOwenership = function checkCampgroundOwenership(req
         });   
     }else{
         req.flash("error", "You need to be logged in to do that.");
-        res.redirect("back");
+        res.redirect("/login");
     }
 };
 
@@ -38,7 +38,7 @@ middlewareObj.checkCommentOwnership = function checkCommentOwnership(req, res, n
                 req.flash("error", "Comment not found.");
                 res.redirect("back");
             } else {
-                if(foundComment.author.id.equals(req.user._id)){
+                if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin){
                     next();
                 }else{
                     res.redirect("back");
