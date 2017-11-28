@@ -2,12 +2,19 @@ var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campgrounds");
 var Comment = require("../models/comments");
+var User = require("../models/user");
 var middleware = require("../middleware"); //it automaticly will look for index.js
 
 
 //USER EDIT AND PERSONAL THINGS
-router.get("/userEdit", middleware.isLoggedIn, function(req, res){
-    res.render("editUserPage", {username: req.user});
+router.get("/userEdit/:id", middleware.isLoggedIn, function(req, res){
+    User.findById(req.params.id, function(err, foundUser){
+       if(err){
+           req.flash("error", "Something went wrong");
+           res.redirect("/");
+       }
+    res.render("editUserPage", {username: req.user, user: foundUser});
+    });
 });
 
 router.get("/messages", middleware.isLoggedIn, function(req, res){

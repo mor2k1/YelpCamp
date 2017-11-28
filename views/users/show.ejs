@@ -17,6 +17,11 @@
     </div>
     <div class="col-md-8">
         <h3><%=user.username%>'s Campgrounds</h3>
+        <%var count = 0; %>
+        <% campgrounds.forEach(function(campground){ %>
+        <% count = count +1; %>
+        <% }); %>
+        The User has <%= count %> Posts.
         <ul>
         <% campgrounds.forEach(function(campground){ %>
             <li><a href="/campgrounds/<%=campground.id%>"><%= campground.name %></a> -  <%= moment(campground.createdAt).fromNow() %></li>

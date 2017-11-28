@@ -2,9 +2,10 @@
 <div class="row">
     <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked">
-          <li role="presentation"><a href="/userEdit">Profile</a></li>
+          <li role="presentation"><a href="/userEdit/<%=currentUser._id%>">Profile</a></li>
           <li role="presentation"><a href="/messages">Messages</a></li>
           <li role="presentation"><a href="/contact">Contact Us</a></li>
+          <li role="presentation"><a href="#">Posts</a></li>
         </ul>
     </div>
     <div class="col-md-9">
@@ -15,10 +16,11 @@
             <div class="active side">
               <div class="ui card">
                 <div class="image">
-                  <img src="https://semantic-ui.com/images/avatar/large/steve.jpg">
+                  <!--img-->
+                  <img src="<%= user.avatar %>">
                 </div>
                 <div class="content">
-                  <div class="header"><%= username.username %></div>
+                  <div class="header"><%= user.firstName + " " + user.lastName %></div>
                   <div class="meta">
                     <a>Acquaintances</a>
                   </div>
