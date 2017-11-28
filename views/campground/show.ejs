@@ -17,7 +17,7 @@
                 <h3><a><%= campground.name %></a></h3>
                 <p><%= campground.description %></p>
                 <p>
-                    <em>Submitted By: <%= campground.author.username %>,</br> <%= moment(campground.createdAt).fromNow() %></em>
+                    <em>Submitted By: <a href="/users/<%= campground.author.id%>"><%= campground.author.username %></a>,</br> <%= moment(campground.createdAt).fromNow() %></em>
                 </p>
                 <div class="ui action input">
                   <button class="ui teal labeled icon button">

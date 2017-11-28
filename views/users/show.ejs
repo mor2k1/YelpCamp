@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+<div class="row">
+    <div class="col-md-4">
+        <h1><%= user.firstName + " " + user.lastName %></h1>
+        <div class="thumbnail">
+            <img src="<%=user.avatar%>" alt="user profile image">
+            <div class="caption"><a href="mailto:<%= user.email %>"><%= user.email %></a></div>
+        </div>
+        Bresaola ham swine cow turducken. Chicken tongue chuck ham, drumstick
+        porchetta boudin meatball venison turkey brisket strip steak short ribs
+        bacon bresaola. Turkey alcatra cow, tongue ham doner rump spare ribs
+        meatloaf shoulder frankfurter. Pork pork loin cupim, t-bone shank chicken 
+        venison sausage hamburger. Rump ground round cupim, meatloaf shoulder 
+        burgdoggen tenderloin swine capicola bacon tongue pork buffalo sausage.
+        Cupim ribeye biltong bacon drumstick chicken.
+    </div>
+    <div class="col-md-8">
+        <h3><%=user.username%>'s Campgrounds</h3>
+        <ul>
+        <% campgrounds.forEach(function(campground){ %>
+            <li><a href="/campgrounds/<%=campground.id%>"><%= campground.name %></a> -  <%= moment(campground.createdAt).fromNow() %></li>
+        <% }); %>
+        </ul>
+    </div>
+</div>
+<% include ../partials/footer %>
