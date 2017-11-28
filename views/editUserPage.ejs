@@ -1,73 +1,71 @@
 <% include partials/header %>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <ul class="nav nav-pills nav-stacked">
-              <li role="presentation"><a href="/userEdit">Profile</a></li>
-              <li role="presentation"><a href="/messages">Messages</a></li>
-              <li role="presentation"><a href="/contact">Contact Us</a></li>
-            </ul>
-        </div>
-        <div class="col-md-9">
-            <h1 style="margin:0 auto;">Hello <%= username.username %>!</h1>
-            
-            <div class="ui people shape">
-              <div class="sides">
-                <div class="active side">
-                  <div class="ui card">
-                    <div class="image">
-                      <img src="https://semantic-ui.com/images/avatar/large/steve.jpg">
-                    </div>
-                    <div class="content">
-                      <div class="header"><%= username.username %></div>
-                      <div class="meta">
-                        <a>Acquaintances</a>
-                      </div>
-                      <div class="description">
-                        <%= username.username %>, Just another a normal account. 
-                      </div>
-                    </div>
-                    <div class="extra content">
-                      <span class="right floated">
-                        Joined in 2017
-                      </span>
-                      <span>
-                        <i class="user icon"></i>
-                        
-                      </span>
-                    </div>
+<div class="row">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation"><a href="/userEdit">Profile</a></li>
+          <li role="presentation"><a href="/messages">Messages</a></li>
+          <li role="presentation"><a href="/contact">Contact Us</a></li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <h1 style="margin:0 auto;">Hello <%= username.username %>!</h1>
+        
+        <div class="ui people shape">
+          <div class="sides">
+            <div class="active side">
+              <div class="ui card">
+                <div class="image">
+                  <img src="https://semantic-ui.com/images/avatar/large/steve.jpg">
+                </div>
+                <div class="content">
+                  <div class="header"><%= username.username %></div>
+                  <div class="meta">
+                    <a>Acquaintances</a>
+                  </div>
+                  <div class="description">
+                    <%= username.username %>, Just another a normal account. 
                   </div>
                 </div>
-                <div class="side">
-                  <div class="ui card">
-                    <div class="image">
-                      <img src="/images/avatar/large/stevie.jpg">
-                    </div>
-                    <div class="content">
-                      <a class="header">Stevie Feliciano</a>
-                      <div class="meta">
-                        <span class="date">Joined in 2014</span>
-                      </div>
-                      <div class="description">
-                        Stevie Feliciano is a library scientist living in New York City. She likes to spend her time reading, running, and writing.
-                      </div>
-                    </div>
-                    <div class="extra content">
-                      <a>
-                        <i class="user icon"></i>
-                        22 Friends
-                      </a>
-                    </div>
-                  </div>
+                <div class="extra content">
+                  <span class="right floated">
+                    Joined in 2017
+                  </span>
+                  <span>
+                    <i class="user icon"></i>
+                    
+                  </span>
                 </div>
               </div>
             </div>
-            
-            <form action="upload.jpg" method="post" enctype="multipart/form-data">
-                <input type="file" name="fileToUpload" id="fileToUpload">
-                <input type="submit" value="Upload Image" name="submit">
-            </form>
+            <div class="side">
+              <div class="ui card">
+                <div class="image">
+                  <img src="/images/avatar/large/stevie.jpg">
+                </div>
+                <div class="content">
+                  <a class="header">Stevie Feliciano</a>
+                  <div class="meta">
+                    <span class="date">Joined in 2014</span>
+                  </div>
+                  <div class="description">
+                    Stevie Feliciano is a library scientist living in New York City. She likes to spend her time reading, running, and writing.
+                  </div>
+                </div>
+                <div class="extra content">
+                  <a>
+                    <i class="user icon"></i>
+                    22 Friends
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        <form action="upload.jpg" method="post" enctype="multipart/form-data">
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="submit" value="Upload Image" name="submit">
+        </form>
     </div>
 </div>
 

@@ -1,22 +1,19 @@
 <% include ../partials/header %>
-<div class="container">
-    <div class="row">
-        <h1 style="text-align: center"> Add new comment to <%= campground.name %><i class="glyphicon glyphicon-pencil" style="margin-left: 7px;"></i></h1>
-        <div class="jumbotron">
-            <div style="width: 30%; margin: 25px auto;">
-                <form action="/campgrounds/<%=campground._id%>/comments" method="POST">
-                    <div class="form-group"> <!-- group things togthere and gives us a little space -->
-                        <input class="form-control" type="text" placeholder="text" name="comment[text]">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-lg btn-primary btn-block">Comment <i class="glyphicon glyphicon-comment"></i></button> 
-                        <!-- btn-block will resize the button to the input size which defined in the style. -->
-                    </div>
-                    <a href="/campgrounds/<%=campground._id%>">Go back</a>
-                </form>
-            </div>
+<div class="row">
+    <h1 style="text-align: center"> Add new comment to <%= campground.name %><i class="glyphicon glyphicon-pencil" style="margin-left: 7px;"></i></h1>
+    <div class="jumbotron">
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/campgrounds/<%=campground._id%>/comments" method="POST">
+                <div class="form-group"> <!-- group things togthere and gives us a little space -->
+                    <input class="form-control" type="text" placeholder="text" name="comment[text]">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Comment <i class="glyphicon glyphicon-comment"></i></button> 
+                    <!-- btn-block will resize the button to the input size which defined in the style. -->
+                </div>
+                <a href="/campgrounds/<%=campground._id%>">Go back</a>
+            </form>
         </div>
-        
     </div>
 </div>
 <% include ../partials/footer %>

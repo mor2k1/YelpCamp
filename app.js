@@ -18,7 +18,7 @@ var commentsRoutes = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes = require("./routes/index");
     
-seedDB();
+// seedDB();
 
 mongoose.Promise = global.Promise; // for an error message in the terminal. 
 
@@ -26,7 +26,8 @@ mongoose.Promise = global.Promise; // for an error message in the terminal.
 // mongoose.connect("mongodb://localhost/yelp_camp_v12", {useMongoClient: true}); 
 // export DATABASEURL=mongodb://localhost/yelp_camp_v12  - in the terminal.
 //we need to set up the enviorment variable on heroku.
-mongoose.connect(process.env.DATABASEURL, {useMongoClient: true});
+var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v12";
+mongoose.connect(url, {useMongoClient: true});
 // mongoose.connect("mongodb://mor:3122pass@ds123146.mlab.com:23146/yelp_camp_mor", {useMongoClient: true}); 
 
 
