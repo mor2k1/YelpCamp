@@ -38,7 +38,8 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
-
+app.locals.moment = require('moment');
+// Now moment is available for use in all of your view files via the variable named moment
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
