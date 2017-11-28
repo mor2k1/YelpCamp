@@ -29,16 +29,32 @@ router.get("/contact", middleware.isLoggedIn, function(req, res){
 
 // INDEX - Display a list of all campgrounds
 router.get("/campgrounds", function(req, res){
-    
-    // get all campground from DB 
-    Campground.find({}, function(err, allCampgrounds){ //by {}, we take all inside the campground db. 
-        if(err){
-            console.log("error: " + err);
-        }else{
-            //if there is no error all the campgrounds from the DB will sent to the campgrounds.ejs file. 
-            res.render("campground/index", {campgrounds: allCampgrounds, currentUser: req.user});
-        }
-    });
+    var noMatch = null;
+    if(req.query.search){ 
+    // if someone searched something so run this : 
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Campground.find({name: regex}, function(err, allCampgrounds){ //by {}, we take all inside the campground db. 
+            if(err){
+                console.log("error: " + err);
+            }else{
+                if(allCampgrounds.length < 1){
+                    noMatch = "No campground match that query, please try again.";
+                }
+                //if there is no error all the campgrounds from the DB will sent to the campgrounds.ejs file. 
+                res.render("campground/index", {campgrounds: allCampgrounds, currentUser: req.user, noMatch: noMatch});
+            }
+        });
+    }else{
+        // get all campground from DB 
+        Campground.find({}, function(err, allCampgrounds){ //by {}, we take all inside the campground db. 
+            if(err){
+                console.log("error: " + err);
+            }else{
+                //if there is no error all the campgrounds from the DB will sent to the campgrounds.ejs file. 
+                res.render("campground/index", {campgrounds: allCampgrounds, currentUser: req.user, noMatch: noMatch});
+            }
+        });
+    }
 });
 
 
@@ -127,5 +143,9 @@ router.delete("/campgrounds/:id", middleware.checkCampgroundOwenership, function
 });
 });
 
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;
