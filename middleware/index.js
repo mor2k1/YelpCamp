@@ -61,4 +61,11 @@ middlewareObj.isLoggedIn = function isLoggedIn(req, res, next){
     res.redirect("/login");
 };
 
+middlewareObj.callback = function callback(req, res, next){
+    if(req.isAuthenticated()){
+        req.flash("error", "You can not enter that page if you are already logged in!");
+        res.redirect("/campgrounds");
+    } return next();
+}
+
 module.exports = middlewareObj
