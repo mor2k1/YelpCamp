@@ -67,10 +67,6 @@ router.get("/logout", function(req, res){
 
 //FORGOT PASSWORD
 router.get("/forgot", function(req, res){
-   if(req.isAuthenticated()){
-       req.flash("error", "You can not enter that page if you are already logged in!");
-       res.redirect("/campgrounds");
-   } 
    res.render("forgot");
 });
 
