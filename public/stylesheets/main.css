@@ -1,7 +1,7 @@
 .thumbnail img {
     width: 100%;
     max-width: 837.5px;
-    max-height: 600px;
+    max-height: 200px;
     
 }
 
@@ -20,4 +20,3 @@
 .delete_button{
     display: inline;
 }
-
