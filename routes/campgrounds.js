@@ -4,7 +4,28 @@ var Campground = require("../models/campgrounds");
 var Comment = require("../models/comments");
 var User = require("../models/user");
 var middleware = require("../middleware"); //it automaticly will look for index.js
+var multer = require('multer');
 
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'yuval', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 //USER EDIT AND PERSONAL THINGS
 router.get("/userEdit/:id", middleware.isLoggedIn, function(req, res){
@@ -59,34 +80,26 @@ router.get("/campgrounds", function(req, res){
 
 
 //CREATE -  Add new campground to DB
-router.post("/campgrounds", middleware.isLoggedIn, function(req, res){
-// the post using the same route as the get. we can do that and we dont need to change
-// the name of the route. get and post are two different thigns. 
-
-   //get data from form and add it to campgrounds array (with body-parser).
-   var name = req.body.name;
-   var price = req.body.price;
-   var image = req.body.image;
-   var desc = req.body.description;
-   var author = {
-       id: req.user._id,
-       username: req.user.username
-   };
-   
-   //combine the data to an object.
-   var newCampground = {name: name, price: price, img: image, description: desc, author: author};
-   
-   //create a new campground and save to DB 
-   Campground.create(newCampground, function(err, newlyCreated){
-       if(err){
-           console.log("error: " + err);
-       }else{
-           //redircet back to campgrounds route. this redirect to the app.get("/campgrounds").
-           req.flash("success", "Campground Created!");
-           res.redirect("/campgrounds");
-       }
-   });
+router.post("/campgrounds", middleware.isLoggedIn, upload.single('img'), function(req, res){
+    cloudinary.uploader.upload(req.file.path, function(result) {
+        // add cloudinary url for the image to the campground object under image property
+        req.body.campground.img = result.secure_url;
+        // add author to campground
+        req.body.campground.author = {
+        id: req.user._id,
+        username: req.user.username
+        }
+        Campground.create(req.body.campground, function(err, campground) {
+            if (err) {
+              req.flash('error', err.message);
+              return res.redirect('back');
+            }
+            req.flash("success", "Campground added Successfully");
+            res.redirect('/campgrounds/' + campground.id);
+        });
+    });
 });
+
 
 //a form that allows us to make a new campground with an image. 
 //NEW - Displays form to make a new campground
@@ -106,6 +119,7 @@ router.get("/campgrounds/:id", function(req, res){
             console.log(foundCampground);
             res.render("campground/show", {campground: foundCampground});            
         }
+        
     });
 });
 
@@ -127,7 +141,7 @@ router.put("/campgrounds/:id", middleware.checkCampgroundOwenership, function(re
           req.flash("success", "Campground edited successfully!");
           res.redirect("/campgrounds/" + req.params.id);
       }
-  }) 
+  });
 });
 
 //DESTROY ROUTE
@@ -146,6 +160,6 @@ router.delete("/campgrounds/:id", middleware.checkCampgroundOwenership, function
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+}
 
 module.exports = router;

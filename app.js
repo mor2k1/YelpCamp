@@ -13,11 +13,13 @@ var express = require("express"),
     Comment = require("./models/comments"),
     methodOverride = require("method-override"),
     flash = require("connect-flash");
+    require('dotenv').config(); 
     
 var commentsRoutes = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes = require("./routes/index");
-    
+ 
+  
 // seedDB();
 
 mongoose.Promise = global.Promise; // for an error message in the terminal. 

@@ -1,29 +1,26 @@
 <% include ../partials/header %>
-<div class="row">
-    <h1 style="text-align: center"> Create a new Campground</h1>
-    <div class="jumbotron">
+    <div class="row">
+        <h1 style="text-align: center">Create a New Campground</h1>
         <div style="width: 30%; margin: 25px auto;">
-            <form action="/campgrounds" method="POST">
-                <div class="form-group"> <!-- group things togthere and gives us a little space -->
-                    <input class="form-control" type="text" placeholder="New Campground" name="name">
+            <form action="/campgrounds" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="campground[name]" placeholder="name">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="number" placeholder="Price" name="price" min="0.01" step="0.01">
+                    <input class="form-control" type="number" placeholder="Price" name="campground[price]" min="0.01" step="0.01">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Image url" name="image">
+                    <label for="img">Image</larsbel>
+                    <input type="file" id="img" name="img" accept="image/*" required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Description" name="description">
+                    <input class="form-control" type="text" name="campground[description]" placeholder="description">
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit</button> 
-                    <!-- btn-block will resize the button to the input size which defined in the style. -->
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
-                <a href="/campgrounds">Go back</a>
             </form>
+            <a href="/campgrounds">Go Back</a>
         </div>
     </div>
-    
-</div>
 <% include ../partials/footer %>

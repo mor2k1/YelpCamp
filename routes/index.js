@@ -7,6 +7,7 @@ var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 
+
 router.get("/", function(req, res){
    res.render("HomePage"); 
 });
@@ -67,6 +68,10 @@ router.get("/logout", function(req, res){
 
 //FORGOT PASSWORD
 router.get("/forgot", function(req, res){
+   if(req.isAuthenticated()){
+       req.flash("error", "You can not enter that page if you are already logged in!");
+       res.redirect("/campgrounds");
+   } 
    res.render("forgot");
 });
 
@@ -96,10 +101,6 @@ router.post('/forgot', function(req, res, next) {
     function(token, user, done) {
       var smtpTransport = nodemailer.createTransport({
         service: 'Gmail', 
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
-        requireTLS: true,
         auth: {
           user: 'domainmor.site@gmail.com',
           pass: process.env.GMAILPWD
